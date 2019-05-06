@@ -1,6 +1,6 @@
 {
   "name": "duedatecalc",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Due date calculator project using Node.js, testing with ava",
   "main": "index.js",
   "scripts": {
