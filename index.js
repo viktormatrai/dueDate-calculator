@@ -2,6 +2,20 @@ const ONE_HOUR_MS = 60 * 60 * 1000;
 const START_HOUR = 9;
 const END_HOUR = 17;
 
+exports.dueDateCalculator = (submitDate, turnaround) => {
+    if (!(submitDate instanceof Date)) {
+        throw new Error('Submit date must be instance of Date')
+    }
+
+    if (turnaround !== parseInt(turnaround, 10)) {
+        throw new Error('Turnaround must be integer')
+    }
+
+    const remainingTime = turnaround * ONE_HOUR_MS;
+
+    return reduceHours(submitDate, remainingTime)
+};
+
 function isWeekend (startDate) {
     const currentDay = startDate.getDay();
     return (currentDay === 6) || (currentDay === 0)
@@ -26,17 +40,3 @@ function reduceHours (startDate, remainingTime) {
         (24 - (END_HOUR - START_HOUR)) * ONE_HOUR_MS);
     return reduceHours(nextDay, remainingTime - difference)
 }
-
-exports.dueDateCalculator = (submitDate, turnaround) => {
-    if (!(submitDate instanceof Date)) {
-        throw new Error('Submit date must be instance of Date')
-    }
-
-    if (turnaround !== parseInt(turnaround, 10)) {
-        throw new Error('Turnaround must be integer')
-    }
-
-    const remainingTime = turnaround * ONE_HOUR_MS;
-
-    return reduceHours(submitDate, remainingTime)
-};
